@@ -2,10 +2,13 @@
 pragma solidity ^0.8.0;
 
 contract MyToken {
+    address private owner;
     string public name;
     string public symbol;
     uint8 public decimals;
-    uint256 public totalSupply;
+    uint256 public totalSupply=0;
+    uint256 public maxSupply; 
+    uint256 public remainingTokens;
     
     mapping(address => uint256) public balanceOf;
     mapping(address => mapping(address => uint256)) public allowance;
@@ -14,10 +17,13 @@ contract MyToken {
     event Approval(address indexed owner, address indexed spender, uint256 value);
     event Mint(address indexed to, uint256 value);
     
-    constructor(string memory _name, string memory _symbol, uint8 _decimals) {
-        name = _name;
-        symbol = _symbol;
-        decimals = _decimals;
+    constructor() {
+        owner = msg.sender;
+        name = "goiToken";
+        symbol  = "GOI";
+        decimals = 8;
+        maxSupply = 1000000 * (10**8);
+        remainingTokens = 1000000*(10**8);
         balanceOf[msg.sender] = totalSupply;
     }
     
@@ -48,12 +54,16 @@ contract MyToken {
         emit Transfer(_from, _to, _value);
         return true;
     }
+
     
-    function mint(address _to, uint256 _value) public returns (bool success) {
-        require(_to != address(0), "Invalid address");
-        totalSupply += _value*10**decimals;
-        balanceOf[_to] += _value*10**decimals;
-        emit Mint(_to, _value*10**decimals);
+    function mint(address to, uint256 value) public returns (bool success) {
+        require(msg.sender == owner, "Only owner can mint tokens");
+        require(totalSupply + (value*10**decimals) <= maxSupply, "You can only mint a million tokens, see remaining tokens" );
+        require(to != address(0), "Invalid address");
+        remainingTokens -= value*10**decimals;
+        totalSupply += value*10**decimals;
+        balanceOf[to] += value*10**decimals;
+        emit Mint(to, value*10**decimals);
         return true;
     }
 }
