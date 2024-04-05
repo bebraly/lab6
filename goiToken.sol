@@ -1,15 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-contract MyToken {
+contract goiToken {
     address private owner;
     string public name;
     string public symbol;
     uint8 public decimals;
-    uint256 public totalSupply=0;
+    uint256 public totalSupply;
     uint256 public maxSupply; 
-    uint256 public remainingTokens;
-    
+
     mapping(address => uint256) public balanceOf;
     mapping(address => mapping(address => uint256)) public allowance;
     
@@ -23,8 +22,6 @@ contract MyToken {
         symbol  = "GOI";
         decimals = 8;
         maxSupply = 1000000 * (10**8);
-        remainingTokens = 1000000*(10**8);
-        balanceOf[msg.sender] = totalSupply;
     }
     
     function transfer(address _to, uint256 _value) public returns (bool success) {
@@ -58,9 +55,9 @@ contract MyToken {
     
     function mint(address to, uint256 value) public returns (bool success) {
         require(msg.sender == owner, "Only owner can mint tokens");
-        require(totalSupply + (value*10**decimals) <= maxSupply, "You can only mint a million tokens, see remaining tokens" );
+        require(value*10**decimals <= maxSupply, "you are trying to mint too many coins, see maxSupply" );
         require(to != address(0), "Invalid address");
-        remainingTokens -= value*10**decimals;
+        maxSupply -= value*10**decimals;
         totalSupply += value*10**decimals;
         balanceOf[to] += value*10**decimals;
         emit Mint(to, value*10**decimals);

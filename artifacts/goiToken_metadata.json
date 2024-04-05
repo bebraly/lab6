@@ -302,7 +302,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"myToken.sol": "MyToken"
+			"goiToken.sol": "goiToken"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -316,12 +316,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"myToken.sol": {
-			"keccak256": "0x260b841a6b41aac6f3b4f903d6ac79962856c9566500bd62843a13f9221e4d63",
+		"goiToken.sol": {
+			"keccak256": "0xc6e1ffcffe936cba5a9be7a12376d351beaeb17a1a174aaa5d9c67505cd46895",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://acff371a39b7b77fc938f0f3711afd96c9b5f240122903a9faf707309f6cfac0",
-				"dweb:/ipfs/QmUVSmcKuf46UMg3DbdL22uCfHQQWpDTzRfs4tbgEGZXiW"
+				"bzz-raw://629eeef523aaa2de2f1195d559d7aefd9cabbcd1e86fd4c030d347a5a00268e8",
+				"dweb:/ipfs/QmNnV9cy1BVQ9ZcqrCm5r88mpN2HpP515crtHcbLRadr7h"
 			]
 		}
 	},
